@@ -30,11 +30,12 @@ class panoramaStoryMap extends frontControllerApplication
 	{
 		# Define available actions
 		$actions = array (
-			'someaction' => array (
-				'description' => 'Do some action',
-				'url' => 'someaction/',
-				'tab' => 'Some action',
-				'icon' => 'add',
+			'edit' => array (
+				'description' => false,
+				'url' => 'edit/',
+				'tab' => 'Scenes data',
+				'icon' => 'pencil',
+				'administrator'	=> true,
 			),
 		);
 		
@@ -101,6 +102,29 @@ class panoramaStoryMap extends frontControllerApplication
 	{
 		//
 		$html = __FUNCTION__;
+		
+		# Show the HTML
+		echo $html;
+	}
+	
+	
+	# Scenes editor
+	public function edit ()
+	{
+		# Delegate to the standard function for editing
+		$sinenomineExtraSettings = array (
+			'tableUrlMoniker' => __FUNCTION__,
+			'fieldFiltering' => false,
+		);
+		$dataBindingAttributes = array (
+			'id' => array ('prepend' => '/scenes/', 'append' => '/', 'regexp' => '^[-a-z0-9]+$', ),
+			'description' => array ('rows' => 3, ),
+			'sceneFile' => array ('directory' => $this->applicationRoot . '/scenes/', 'forcedFileName' => '%id', 'lowercaseExtension' => true, 'allowedExtensions' => array ('zip'), ),
+		);
+		$this->template['html'] = $this->editingTable ('scenes', $dataBindingAttributes, 'graybox lines', false, $sinenomineExtraSettings);
+		
+		# Process the template
+		$html = $this->templatise ();
 		
 		# Show the HTML
 		echo $html;
