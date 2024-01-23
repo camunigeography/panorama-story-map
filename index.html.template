@@ -5,6 +5,7 @@ $settings = array (
 	'hostname' => 'localhost',
 	'username' => 'my_username',
 	'password' => 'my_password',
+	'maptilerApiKey' => 'my_key',
 );
 
 # Load and run the application with the above settings

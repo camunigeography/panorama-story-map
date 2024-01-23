@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "leaflet": "^1.9.4"
+    "maplibre-gl": "^3.6.2"
   }
 }

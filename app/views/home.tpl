@@ -1,8 +1,8 @@
 
 
-<!-- Leaflet map -->
-<link rel="stylesheet" href="js/lib/leaflet/dist/leaflet.css" />
-<script src="js/lib/leaflet/dist/leaflet.js"></script>
+<!-- MapLibre GL JS map -->
+<link rel="stylesheet" href="js/lib/maplibre-gl/dist/maplibre-gl.css" />
+<script src="js/lib/maplibre-gl/dist/maplibre-gl.js"></script>
 
 <!-- Application logic -->
 <script src="src/panoramaStoryMap.js"></script>

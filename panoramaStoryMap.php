@@ -18,6 +18,7 @@ class panoramaStoryMap extends frontControllerApplication
 			'table'					=> 'scenes',
 			'useTemplating'			=> true,
 			'apiUsername'			=> true,
+			'maptilerApiKey'		=> NULL,
 		);
 		
 		# Return the defaults
@@ -90,7 +91,7 @@ class panoramaStoryMap extends frontControllerApplication
 	public function home ()
 	{
 		# Set the config
-		$config = application::arrayFields ($this->settings, array ());
+		$config = application::arrayFields ($this->settings, array ('maptilerApiKey'));
 		$this->template['configJson'] = json_encode ($config, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 		
 		# Process the template
