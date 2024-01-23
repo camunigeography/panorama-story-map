@@ -16,6 +16,7 @@ class panoramaStoryMap extends frontControllerApplication
 			'administrators'		=> 'administrators',
 			'database'				=> 'panoramastorymap',
 			'table'					=> 'scenes',
+			'useTemplating'			=> true,
 			'apiUsername'			=> true,
 		);
 		

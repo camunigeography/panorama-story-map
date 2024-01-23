@@ -11,6 +11,7 @@
     ],
     "require": {
         "libpurecontent/frontcontrollerapplication": "^1.13",
+        "smarty/smarty": "^4.3",
         "libpurecontent/application": "^1.9"
     },
     "autoload": {
