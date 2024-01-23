@@ -10,7 +10,8 @@
         }
     ],
     "require": {
-        "libpurecontent/frontcontrollerapplication": "^1.13"
+        "libpurecontent/frontcontrollerapplication": "^1.13",
+        "libpurecontent/application": "^1.9"
     },
     "autoload": {
         "files": ["panoramaStoryMap.php"]

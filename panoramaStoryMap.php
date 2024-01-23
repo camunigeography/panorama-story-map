@@ -16,6 +16,7 @@ class panoramaStoryMap extends frontControllerApplication
 			'administrators'		=> 'administrators',
 			'database'				=> 'panoramastorymap',
 			'table'					=> 'scenes',
+			'apiUsername'			=> true,
 		);
 		
 		# Return the defaults
@@ -60,13 +61,16 @@ class panoramaStoryMap extends frontControllerApplication
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Settings';
 			INSERT INTO settings (id) VALUES (1);
 			
-			-- My table
-			CREATE TABLE IF NOT EXISTS `mytable` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Automatic key',
-			  ...
-			  `updatedAt` datetime NOT NULL COMMENT 'Updated at',
+			-- My scenes
+			CREATE TABLE `scenes` (
+			  `id` varchar(255) NOT NULL COMMENT 'Scene ID for URL',
+			  `title` varchar(255) NOT NULL COMMENT 'Title',
+			  `description` text COMMENT 'Description',
+			  `lon` decimal(10,8) NOT NULL COMMENT 'Longitude',
+			  `lat` decimal(10,8) NOT NULL COMMENT 'Latitude',
+			  `sceneFile` varchar(255) DEFAULT NULL COMMENT 'Scene .zip from Marzipano',
 			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='My table';
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Table of scenes';
 		";
 	}
 	
@@ -99,6 +103,37 @@ class panoramaStoryMap extends frontControllerApplication
 		
 		# Show the HTML
 		echo $html;
+	}
+	
+	
+	# API call for locations
+	public function apiCall_locations ()
+	{
+		# Get location data
+		$locations = $this->databaseConnection->select ($this->settings['database'], $this->settings['table']);
+		
+		# Fix up decimal columns
+		#!# This needs to be available as an option in FCA passed through to database.php
+		foreach ($locations as $id => $location) {
+			$locations[$id]['lon'] = (float) $location['lon'];
+			$locations[$id]['lat'] = (float) $location['lat'];
+		}
+		
+		# Convert to GeoJSON
+		$geojson = array ('type' => 'FeatureCollection', 'features' => array ());
+		foreach ($locations as $location) {
+			$geojson['features'][] = array (
+				'type' => 'Feature',
+				'geometry' => array (
+					'type' => 'Point',
+					'coordinates' => array ($location['lon'], $location['lat']),
+				),
+				'properties' => application::arrayFields ($location, array ('id', 'title', 'description')),
+			);
+		}
+		
+		# Return the data
+		return $geojson;
 	}
 }
 
