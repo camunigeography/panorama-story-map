@@ -13,6 +13,18 @@ function panoramaStoryMap (config)
 	// Enable controls
 	map.addControl (new maplibregl.NavigationControl ());
 	
+	// Add terrain; see: https://www.maptiler.com/news/2022/05/maplibre-v2-add-3d-terrain-to-your-map/
+	map.on ('load', function () {
+		map.addSource ('terrain', {
+			type: 'raster-dem',
+			url: `https://api.maptiler.com/tiles/terrain-rgb/tiles.json?key=${config.maptilerApiKey}`,
+		});
+		map.setTerrain ({
+			source: 'terrain',
+			exaggeration: 1.5
+		});
+	});
+
 	// Load and show the data
 	map.on ('load', function () {
 		fetch ('api/locations')
