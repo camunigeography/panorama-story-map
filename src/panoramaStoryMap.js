@@ -1,4 +1,4 @@
-function panoramaStoryMap ()
+function panoramaStoryMap (config)
 {
 	// Create the map
 	const map = L.map('map').setView([-43.1210, -72.3931], 9);

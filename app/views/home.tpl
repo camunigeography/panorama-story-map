@@ -8,7 +8,8 @@
 <script src="src/panoramaStoryMap.js"></script>
 <script>
 	document.addEventListener ('DOMContentLoaded', function () {
-		new panoramaStoryMap ();
+		const config = {$configJson};
+		new panoramaStoryMap (config);
 	});
 </script>
 

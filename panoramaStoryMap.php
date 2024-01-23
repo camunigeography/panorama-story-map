@@ -89,6 +89,10 @@ class panoramaStoryMap extends frontControllerApplication
 	# Home page
 	public function home ()
 	{
+		# Set the config
+		$config = application::arrayFields ($this->settings, array ());
+		$this->template['configJson'] = json_encode ($config, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+		
 		# Process the template
 		$html = $this->templatise ();
 		
