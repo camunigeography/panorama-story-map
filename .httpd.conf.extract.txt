@@ -1,0 +1,23 @@
+# Paranorama story map Apache directives
+
+# Load using:
+#	# Paranorama story map
+#	Include /path/to/panorama-story-map/.httpd.conf.extract.txt
+#	Use MacroPanoramaStoryMap /path/to/panorama-story-map "/path/to/site/:/path/to/panorama-story-map/"
+
+
+<Macro MacroPanoramaStoryMap $baseUrl $includePath>
+	
+	# Include path
+	<Location $baseUrl/>
+		php_value include_path "$includePath"
+	</Location>
+	
+	# Front controller application support
+	Use MacroFrontControllerApplication "$baseUrl/" "Paranorama story map"
+	
+	# Application routing
+	#RewriteRule ^$baseUrl/(someaction)/$ $baseUrl/index.html?action=$1 [L]
+	#RewriteRule ^$baseUrl/(someaction)$ $baseUrl/$1/ [R]
+	
+</Macro>

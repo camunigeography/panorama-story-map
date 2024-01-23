@@ -1,0 +1,14 @@
+<?php
+
+# Settings
+$settings = array (
+	'hostname' => 'localhost',
+	'username' => 'my_username',
+	'password' => 'my_password',
+);
+
+# Load and run the application with the above settings
+require_once ('panoramaStoryMap.php');
+new panoramaStoryMap ($settings);
+
+?>
