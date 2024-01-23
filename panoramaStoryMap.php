@@ -89,8 +89,8 @@ class panoramaStoryMap extends frontControllerApplication
 	# Home page
 	public function home ()
 	{
-		//
-		$html = __FUNCTION__;
+		# Process the template
+		$html = $this->templatise ();
 		
 		# Show the HTML
 		echo $html;

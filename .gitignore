@@ -1,3 +1,7 @@
 index.html
-vendor/
 scenes/
+# Composer dependencies
+/vendor/
+# JS (Yarn) dependencies
+/js/lib/
+/yarn-error.log
