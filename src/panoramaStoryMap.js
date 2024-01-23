@@ -1,5 +1,7 @@
 function panoramaStoryMap (config)
 {
+	'use strict';
+	
 	// Create the map
 	const map = new maplibregl.Map ({
 		container: 'map',
