@@ -4,9 +4,9 @@ function panoramaStoryMap (config)
 	const map = new maplibregl.Map ({
 		container: 'map',
 		style: `https://api.maptiler.com/maps/hybrid/style.json?key=${config.maptilerApiKey}`,
-		center: [-72.3931, -43.1210], // lng, lat
+		center: [0, 0], // lng, lat
 		//hash: true
-		zoom: 9,
+		zoom: 1,
 		maxZoom: 13
 	});
 	
@@ -25,6 +25,17 @@ function panoramaStoryMap (config)
 		});
 	});
 
+	// Fly in after initial load
+	map.on ('load', function () {
+		map.flyTo ({
+			maxDuration: 4000,
+			essential: true,
+			center: [-72.3931, -43.1210],
+			zoom: 9,
+			pitch: 60,
+		});
+	});
+	
 	// Load and show the data
 	map.on ('load', function () {
 		fetch ('api/locations')
