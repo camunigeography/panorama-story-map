@@ -23,4 +23,10 @@
 	# Editing
 	Use MacroSinenomineEmbeddedTable "$baseUrl" "/edit" "edit"
 	
+	# Scenes
+	<Location $baseUrl/scenes/>
+		php_value auto_prepend_file none
+		php_value auto_append_file none
+	</Location>
+	
 </Macro>
