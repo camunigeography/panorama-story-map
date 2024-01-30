@@ -72,6 +72,7 @@ class panoramaStoryMap extends frontControllerApplication
 			  `lon` decimal(10,8) NOT NULL COMMENT 'Longitude',
 			  `lat` decimal(10,8) NOT NULL COMMENT 'Latitude',
 			  `sceneFile` varchar(255) NOT NULL COMMENT 'Scene .zip from Marzipano',
+			  `assetsFile` varchar(255) NOT NULL COMMENT 'Assets .zip file',
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Table of scenes';
 		";
@@ -125,6 +126,7 @@ class panoramaStoryMap extends frontControllerApplication
 			'id' => array ('prepend' => '/scenes/', 'append' => '/', 'regexp' => '^[-a-z0-9]+$', 'description' => 'Lower-case a-z, 0-9, hyphens only'),
 			'description' => array ('rows' => 3, ),
 			'sceneFile' => array ('directory' => $this->applicationRoot . '/scenes/', 'forcedFileName' => '%id', 'lowercaseExtension' => true, 'allowedExtensions' => array ('zip'), ),
+			'assetsFile' => array ('directory' => $this->applicationRoot . '/assets/', 'forcedFileName' => '%id', 'lowercaseExtension' => true, 'allowedExtensions' => array ('zip'), 'description' => 'Images etc. zipped up without folders, with their filenames exactly matching text in the scenes'),
 		);
 		$this->template['html'] = $this->editingTable ('scenes', $dataBindingAttributes, 'graybox lines', false, $sinenomineExtraSettings);
 		
