@@ -71,7 +71,7 @@ class panoramaStoryMap extends frontControllerApplication
 			  `description` text COMMENT 'Description',
 			  `lon` decimal(10,8) NOT NULL COMMENT 'Longitude',
 			  `lat` decimal(10,8) NOT NULL COMMENT 'Latitude',
-			  `sceneFile` varchar(255) DEFAULT NULL COMMENT 'Scene .zip from Marzipano',
+			  `sceneFile` varchar(255) NOT NULL COMMENT 'Scene .zip from Marzipano',
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Table of scenes';
 		";
