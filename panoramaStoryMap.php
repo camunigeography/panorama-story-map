@@ -128,7 +128,7 @@ class panoramaStoryMap extends frontControllerApplication
 			'sceneFile' => array ('directory' => $this->applicationRoot . '/scenes/', 'forcedFileName' => '%id', 'lowercaseExtension' => true, 'allowedExtensions' => array ('zip'), ),
 			'assetsFile' => array ('directory' => $this->applicationRoot . '/assets/', 'forcedFileName' => '%id', 'lowercaseExtension' => true, 'allowedExtensions' => array ('zip'), 'description' => 'Images etc. zipped up without folders, with their filenames exactly matching text in the scenes'),
 		);
-		$this->template['html'] = $this->editingTable ('scenes', $dataBindingAttributes, 'graybox lines', false, $sinenomineExtraSettings);
+		$this->template['html'] = $this->editingTable ($this->settings['table'], $dataBindingAttributes, 'graybox lines', false, $sinenomineExtraSettings);
 		
 		# Process the template
 		$html = $this->templatise ();
