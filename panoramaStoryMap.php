@@ -130,7 +130,7 @@ class panoramaStoryMap extends frontControllerApplication
 		$dataBindingAttributes = array (
 			'id' => array ('prepend' => '/scenes/', 'append' => '/', 'regexp' => '^[-a-z0-9]+$', 'description' => 'Lower-case a-z, 0-9, hyphens only'),
 			'description' => array ('rows' => 3, ),
-			'sceneFile' => array ('directory' => $this->applicationRoot . '/scenes/', 'forcedFileName' => '%id', 'lowercaseExtension' => true, 'allowedExtensions' => array ('zip'), ),
+			'sceneFile' =>  array ('directory' => $this->applicationRoot . '/scenes/', 'forcedFileName' => '%id', 'lowercaseExtension' => true, 'allowedExtensions' => array ('zip'), ),
 			'assetsFile' => array ('directory' => $this->applicationRoot . '/assets/', 'forcedFileName' => '%id', 'lowercaseExtension' => true, 'allowedExtensions' => array ('zip'), 'description' => 'Images etc. zipped up without folders, with their filenames exactly matching text in the scenes'),
 		);
 		$this->template['html'] = $this->editingTable ($this->settings['table'], $dataBindingAttributes, 'graybox lines', false, $sinenomineExtraSettings);
@@ -147,9 +147,34 @@ class panoramaStoryMap extends frontControllerApplication
 	#!# Currently no support in sinenomine for callbacks when deleting a record, needed in this application to delete the asset files
 	public function processUploadedFiles_callback ($record, &$errorHtml = '')
 	{
-		//var_dump ($record, $errorHtml);
+		# Handle each file, e.g. uploaded /scenes/my-scene.zip (with no containing directory in the .zip file) is unzipped to /scenes/my-scene/<files.ext...>
+		#!# NB This is done before the sinenomine.php rename on line 1484, so causes a warning there; need to handle this scenario better
+		$types = array ('scenes' => 'sceneFile', 'assets' => 'assetsFile');
+		foreach ($types as $type => $field) {
+			
+			# Determine path components
+			$directory = $this->applicationRoot . "/{$type}/";
+			$newDirectory = $directory . $record['id'] . '/';
+			$archivedDirectory = $directory . $record['id'] . '.replacedAt-' . date ('Ymd-His') . '/';
+			$filename = $record['id'] . '.zip';
+			
+			# Archive off any folder from a previous version
+			if (is_dir ($newDirectory)) {
+				rename ($newDirectory, $archivedDirectory);
+			}
+			
+			# Create the directory
+			umask (0);
+			mkdir ($newDirectory, 0775);
+			
+			# Move the zip file into the new directory
+			rename ($directory . $filename, $newDirectory . $filename);
+			
+			# Unzip the file; zip folders should not have a top-level folder
+			application::unzip ($filename, $newDirectory, $deleteAfterUnzipping = false);
+		}
 		
-		# Return the record (required by the sinenomine callback specification)
+		# Return the record (required by the sinenomine callback specification), unmodified
 		return $record;
 	}
 	
