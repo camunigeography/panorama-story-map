@@ -121,6 +121,11 @@ class panoramaStoryMap extends frontControllerApplication
 		$sinenomineExtraSettings = array (
 			'tableUrlMoniker' => __FUNCTION__,
 			'fieldFiltering' => false,
+			'callback' => array (
+				$this->settings['database'] => array (
+					$this->settings['table'] => array ($this, 'processUploadedFiles_callback'),
+				),
+			),
 		);
 		$dataBindingAttributes = array (
 			'id' => array ('prepend' => '/scenes/', 'append' => '/', 'regexp' => '^[-a-z0-9]+$', 'description' => 'Lower-case a-z, 0-9, hyphens only'),
@@ -135,6 +140,17 @@ class panoramaStoryMap extends frontControllerApplication
 		
 		# Show the HTML
 		echo $html;
+	}
+	
+	
+	# Callback function to process submitted data
+	#!# Currently no support in sinenomine for callbacks when deleting a record, needed in this application to delete the asset files
+	public function processUploadedFiles_callback ($record, &$errorHtml = '')
+	{
+		//var_dump ($record, $errorHtml);
+		
+		# Return the record (required by the sinenomine callback specification)
+		return $record;
 	}
 	
 	
