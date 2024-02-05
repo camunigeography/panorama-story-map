@@ -24,6 +24,7 @@
 	Use MacroSinenomineEmbeddedTable "$baseUrl" "/edit" "edit"
 	
 	# Scenes
+	RewriteRule ^$baseUrl/scenes/([^/]+)/(.+)$ $baseUrl/scenes/$1/app-files/$2 [L]
 	<Location $baseUrl/scenes/>
 		php_value auto_prepend_file none
 		php_value auto_append_file none
