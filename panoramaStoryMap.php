@@ -19,6 +19,7 @@ class panoramaStoryMap extends frontControllerApplication
 			'useTemplating'			=> true,
 			'apiUsername'			=> true,
 			'maptilerApiKey'		=> NULL,
+			'assetWidth'			=> '100%',	// Or e.g. '260px'
 		);
 		
 		# Return the defaults
@@ -174,8 +175,71 @@ class panoramaStoryMap extends frontControllerApplication
 			application::unzip ($filename, $newDirectory, $deleteAfterUnzipping = false);
 		}
 		
+		# Attach the assets
+		$this->attachAssets ($record['id']);
+		
 		# Return the record (required by the sinenomine callback specification), unmodified
 		return $record;
+	}
+	
+	
+	# Function to rewrite asset into the references in the scene data file
+	private function attachAssets ($id)
+	{
+		# Create a backup copy of the original scene data file before rewriting it
+		if (!file_exists ($dataFile . '.original')) {
+			$dataFile = $this->applicationRoot . '/scenes/' . $id . '/app-files/data.js';
+			copy ($dataFile, $dataFile . '.original');
+		}
+		
+		# Rewrite the asset references in the data, e.g. foo.mp4 is turned into a <video> tag
+		$assetsDirectory = $this->applicationRoot . '/assets/' . $id . '/';
+		$files = glob ($assetsDirectory . '*.{mp4,m4a,mp3,jpg,jpeg,png,url,MP4,M4A,MP3,JPG,JPEG,PNG,URL}', GLOB_BRACE);
+		
+		# Create a replacement HTML tag for each file
+		$replacements = array ();
+		foreach ($files as $file) {
+			
+			# Create HTML tag for each file
+			$filename = pathinfo ($file, PATHINFO_BASENAME);
+			$path = $this->baseUrl . '/assets/' . $id . '/' . $filename;
+			switch (strtolower (pathinfo ($file, PATHINFO_EXTENSION ))) {
+				case 'mp4':
+					$html = '<video style="width: ' . $this->settings['assetWidth'] . '; display: block;" controls="controls"><source src="' . htmlspecialchars ($path) . '" type="video/mp4" /></video>';
+					break;
+				case 'm4a':
+					$html = '<audio style="width: ' . $this->settings['assetWidth'] . '; display: block;" controls="controls"><source src="' . htmlspecialchars ($path) . '" type="audio/x-m4a" /></video>';
+					break;
+				case 'mp3':
+					$html = '<audio style="width: ' . $this->settings['assetWidth'] . '; display: block;" controls="controls"><source src="' . htmlspecialchars ($path) . '" type="audio/mpeg" /></video>';
+					break;
+				case 'jpg':
+				case 'jpeg':
+				case 'png':
+					$html = '<img style="width: ' . $this->settings['assetWidth'] . '; display: block;" src="' . htmlspecialchars ($path) . '" />';
+					break;
+				case 'url':
+					$contents = file_get_contents ($file);
+					preg_match ('/URL=(.+)$/', $contents, $matches);
+					$url = $matches[1];
+					$html = '<a href="' . htmlspecialchars ($url) . '" target="_blank" title="[Link opens in a new window]">Website link /<br />Enlace de página web</a>';
+					break;
+			}
+			
+			# Register replacement
+			$replacements[$filename] = $html;
+		}
+		//application::dumpData ($replacements);
+		
+		# Convert replacments to escape " as the strings in the file are "-quoted
+		foreach ($replacements as $filename => $html) {
+			$replacements[$filename] = str_replace ('"', '\\"', $html);
+		}
+		
+		# Replace filenames with tags, in the data file
+		$js = file_get_contents ($dataFile);
+		$js = strtr ($js, $replacements);
+		file_put_contents ($dataFile, $js);
 	}
 	
 	
