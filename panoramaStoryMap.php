@@ -187,8 +187,8 @@ class panoramaStoryMap extends frontControllerApplication
 	private function attachAssets ($id)
 	{
 		# Create a backup copy of the original scene data file before rewriting it
+		$dataFile = $this->applicationRoot . '/scenes/' . $id . '/app-files/data.js';
 		if (!file_exists ($dataFile . '.original')) {
-			$dataFile = $this->applicationRoot . '/scenes/' . $id . '/app-files/data.js';
 			copy ($dataFile, $dataFile . '.original');
 		}
 		
