@@ -192,18 +192,18 @@ class panoramaStoryMap extends frontControllerApplication
 			copy ($dataFile, $dataFile . '.original');
 		}
 		
-		# Rewrite the asset references in the data, e.g. foo.mp4 is turned into a <video> tag
+		# Standardise the assets file extensions and get the file list
 		$assetsDirectory = $this->applicationRoot . '/assets/' . $id . '/';
-		$files = glob ($assetsDirectory . '*.{mp4,m4a,mp3,jpg,jpeg,png,url,MP4,M4A,MP3,JPG,JPEG,PNG,URL}', GLOB_BRACE);
+		$files = directories::standardiseFileExtensions ($assetsDirectory);
 		
-		# Create a replacement HTML tag for each file
+		# Create a replacement HTML tag for each file, e.g. foo.mp4 is turned into a <video> tag
 		$replacements = array ();
 		foreach ($files as $file) {
 			
 			# Create HTML tag for each file
 			$filename = pathinfo ($file, PATHINFO_BASENAME);
 			$path = $this->baseUrl . '/assets/' . $id . '/' . $filename;
-			switch (strtolower (pathinfo ($file, PATHINFO_EXTENSION ))) {
+			switch (pathinfo ($file, PATHINFO_EXTENSION )) {
 				case 'mp4':
 					$html = '<video style="width: ' . $this->settings['assetWidth'] . '; display: block;" controls="controls"><source src="' . htmlspecialchars ($path) . '" type="video/mp4" /></video>';
 					break;
