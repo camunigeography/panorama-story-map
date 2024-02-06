@@ -175,7 +175,7 @@ class panoramaStoryMap extends frontControllerApplication
 			application::unzip ($filename, $newDirectory, $deleteAfterUnzipping = false);
 		}
 		
-		# Attach the assets
+		# Attach the assets and links
 		$this->attachAssets ($record['id']);
 		
 		# Return the record (required by the sinenomine callback specification), unmodified
@@ -192,12 +192,24 @@ class panoramaStoryMap extends frontControllerApplication
 			copy ($dataFile, $dataFile . '.original');
 		}
 		
+		# Open the scene file
+		$js = file_get_contents ($dataFile);
+		
+		# Start replacements
+		$replacements = array ();
+		
+		# Create replacements for URLs to become hyperlinks
+		$websiteLinkText = 'Website link / Enlace de página web';
+		preg_match_all ("@(https?://.+)(?:\s|<|\"|&nbsp;)@U", $js, $matches, PREG_PATTERN_ORDER);
+		foreach ($matches[0] as $url) {
+			$replacements[$url] =  '<a href="' . $url . '" target="_blank">' . $websiteLinkText . '</a>';
+		}
+		
 		# Standardise the assets file extensions and get the file list
 		$assetsDirectory = $this->applicationRoot . '/assets/' . $id . '/';
 		$files = directories::standardiseFileExtensions ($assetsDirectory);
 		
 		# Create a replacement HTML tag for each file, e.g. foo.mp4 is turned into a <video> tag
-		$replacements = array ();
 		foreach ($files as $file) {
 			
 			# Create HTML tag for each file
@@ -222,7 +234,7 @@ class panoramaStoryMap extends frontControllerApplication
 					$contents = file_get_contents ($file);
 					preg_match ('/URL=(.+)$/', $contents, $matches);
 					$url = $matches[1];
-					$html = '<a href="' . htmlspecialchars ($url) . '" target="_blank" title="[Link opens in a new window]">Website link /<br />Enlace de página web</a>';
+					$html = '<a href="' . htmlspecialchars ($url) . '" target="_blank" title="[Link opens in a new window]">' . $websiteLinkText . '</a>';
 					break;
 			}
 			
@@ -237,8 +249,9 @@ class panoramaStoryMap extends frontControllerApplication
 		}
 		
 		# Replace filenames with tags, in the data file
-		$js = file_get_contents ($dataFile);
 		$js = strtr ($js, $replacements);
+		
+		# Save the file
 		file_put_contents ($dataFile, $js);
 	}
 	
