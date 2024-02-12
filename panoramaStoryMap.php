@@ -263,6 +263,9 @@ class panoramaStoryMap extends frontControllerApplication
 		# Replace filenames with tags, in the data file
 		$js = strtr ($js, $replacements);
 		
+		# Add javascript code to end
+		$js .= "\n" . $this->customJs ();
+		
 		# Save the file
 		if (!file_put_contents ($dataFile, $js)) {
 			echo "\n<p class=\"warning\">Error: Unable to update scene file <tt>{$dataFile}</tt>.</p>";
@@ -272,6 +275,16 @@ class panoramaStoryMap extends frontControllerApplication
 		# Confirm success
 		return true;
 	}
+	
+	
+	# Function to provide static custom JS to be added to the hotspot data file
+	public function customJs ()
+	{
+		return <<<'EOD'
+			document.addEventListener ('DOMContentLoaded', function () {
+				
+			});
+		EOD;
 	}
 	
 	
