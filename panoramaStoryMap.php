@@ -188,12 +188,13 @@ class panoramaStoryMap extends frontControllerApplication
 	{
 		# Create a backup copy of the original scene data file before rewriting it
 		$dataFile = $this->applicationRoot . '/scenes/' . $id . '/app-files/data.js';
-		if (!file_exists ($dataFile . '.original')) {
-			copy ($dataFile, $dataFile . '.original');
+		$dataFileOriginalCopy = $dataFile . '.original';
+		if (!file_exists ($dataFileOriginalCopy)) {
+			copy ($dataFile, $dataFileOriginalCopy);
 		}
 		
 		# Open the scene file
-		$js = file_get_contents ($dataFile);
+		$js = file_get_contents ($dataFileOriginalCopy);
 		
 		# Start replacements
 		$replacements = array ();
