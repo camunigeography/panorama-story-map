@@ -3,15 +3,10 @@
 # Load using:
 #	# Paranorama story map
 #	Include /path/to/panorama-story-map/.httpd.conf.extract.txt
-#	Use MacroPanoramaStoryMap /path/to/panorama-story-map "/path/to/site/:/path/to/panorama-story-map/"
+#	Use MacroPanoramaStoryMap /path/to/panorama-story-map
 
 
-<Macro MacroPanoramaStoryMap $baseUrl $includePath>
-	
-	# Include path
-	<Location $baseUrl/>
-		php_value include_path "$includePath"
-	</Location>
+<Macro MacroPanoramaStoryMap $baseUrl>
 	
 	# Front controller application support
 	Use MacroFrontControllerApplication "$baseUrl/" "Paranorama story map"
