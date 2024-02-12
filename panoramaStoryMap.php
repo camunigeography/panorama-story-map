@@ -210,6 +210,11 @@ class panoramaStoryMap extends frontControllerApplication
 		# Start replacements
 		$replacements = array ();
 		
+		# Replace language blocks; see also below
+		$replacements['{{es: '] = '<div class="language" data-language="es">';
+		$replacements['{{en: '] = '<div class="language" data-language="en">';
+		$replacements['}}'] = '</div>';
+		
 		# Create replacements for URLs to become hyperlinks
 		$websiteLinkText = 'Website link / Enlace de página web';
 		preg_match_all ("@(https?://.+)(?:\s|<|\"|&nbsp;)@U", $js, $matches, PREG_PATTERN_ORDER);
@@ -283,6 +288,45 @@ class panoramaStoryMap extends frontControllerApplication
 		return <<<'EOD'
 			document.addEventListener ('DOMContentLoaded', function () {
 				
+				// Define labels for language switcher
+				const languagesLabels = {en: 'English', es: 'Español'};
+			
+				// Find each hotspot
+				document.querySelectorAll ('.hotspot .info-hotspot-text').forEach (function (hotspot) {
+					
+					// Add the language switcher div
+					hotspot.innerHTML = hotspot.innerHTML.replace ('<div class="language"', '<div class="language-switcher"></div><div class="language"');    // First only - .replace() is not global replace by default
+					
+					// Add a link list for each language
+					const languagesList = [];
+					hotspot.querySelectorAll ('.language').forEach (function (languageDiv) {
+						languagesList.push ('<a href="#' + languageDiv.dataset.language + '" style="border: 1px solid #999; padding: 2px 4px; margin-right: 6px;">' + languagesLabels[languageDiv.dataset.language] + '</a>');
+					});
+					if (languagesList.length) {
+						hotspot.querySelectorAll ('.language-switcher')[0].innerHTML = '<p style="margin-bottom: 8px;">' + languagesList.join (' ') + '</p>';
+					}
+					
+					// Function to show the selected language
+					function displayLanguage (selectedLanguage) {
+						hotspot.querySelectorAll ('.language').forEach (function (languageDiv) {
+							languageDiv.style.display = (languageDiv.dataset.language == selectedLanguage ? 'block' : 'none');
+						});
+						hotspot.querySelectorAll ('.language-switcher a').forEach (function (link) {
+							link.style.background = (link.hash.substr (1) == selectedLanguage ? '#777' : 'transparent');
+						});
+					}
+					
+					// Show first language initially
+					//const initialLanguage = hotspot.querySelectorAll ('.language')[0].dataset.language;
+					displayLanguage ('es');
+					
+					// Switch language when tab clicked on
+					hotspot.querySelectorAll ('.language-switcher a').forEach (function (link) {
+						link.addEventListener ('click', function () {
+							displayLanguage (link.hash.substr (1));
+						});
+					});
+				});
 			});
 		EOD;
 	}
