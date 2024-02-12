@@ -261,7 +261,9 @@ class panoramaStoryMap extends frontControllerApplication
 		$js = strtr ($js, $replacements);
 		
 		# Save the file
-		file_put_contents ($dataFile, $js);
+		if (!file_put_contents ($dataFile, $js)) {
+			echo "\n<p class=\"warning\">Error: Unable to update scene file <tt>{$dataFile}</tt>.</p>";
+		}
 	}
 	
 	
