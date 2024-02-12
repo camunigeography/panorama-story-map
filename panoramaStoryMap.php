@@ -39,6 +39,14 @@ class panoramaStoryMap extends frontControllerApplication
 				'icon' => 'pencil',
 				'administrator'	=> true,
 			),
+			'regenerate' => array (
+				'description' => 'Regenerate scene files',
+				'url' => 'admin/regenerate.html',
+				'subtab' => 'Regenerate scene files',
+				'parent' => 'admin',
+				'icon' => 'arrow_refresh',
+				'administrator'	=> true,
+			),
 		);
 		
 		# Return the actions
@@ -254,6 +262,26 @@ class panoramaStoryMap extends frontControllerApplication
 		
 		# Save the file
 		file_put_contents ($dataFile, $js);
+	}
+	
+	
+	# Function to regenerate scene files
+	public function regenerate ()
+	{
+		# Get the list of scenes
+		$scenes = $this->databaseConnection->selectPairs ($this->settings['database'], $this->settings['table'], array (), array ('id'));
+		
+		# Attach assets to each
+		foreach ($scenes as $scene) {
+			$this->attachAssets ($scene);
+		}
+		
+		# Confirm
+		$html  = "\n<p>{$this->tick} Done:</p>";
+		$html .= "\n" . application::htmlUl ($scenes);
+		
+		# Show the HTML
+		echo $html;
 	}
 	
 	
