@@ -198,7 +198,10 @@ class panoramaStoryMap extends frontControllerApplication
 		$dataFile = $this->applicationRoot . '/scenes/' . $id . '/app-files/data.js';
 		$dataFileOriginalCopy = $dataFile . '.original';
 		if (!file_exists ($dataFileOriginalCopy)) {
-			copy ($dataFile, $dataFileOriginalCopy);
+			if (!copy ($dataFile, $dataFileOriginalCopy)) {
+				echo "\n<p class=\"warning\">Error: Unable to back up scene file to <tt>{$dataFileOriginalCopy}</tt>.</p>";
+				return false;
+			}
 		}
 		
 		# Open the scene file
@@ -263,7 +266,12 @@ class panoramaStoryMap extends frontControllerApplication
 		# Save the file
 		if (!file_put_contents ($dataFile, $js)) {
 			echo "\n<p class=\"warning\">Error: Unable to update scene file <tt>{$dataFile}</tt>.</p>";
+			return false;
 		}
+		
+		# Confirm success
+		return true;
+	}
 	}
 	
 	
