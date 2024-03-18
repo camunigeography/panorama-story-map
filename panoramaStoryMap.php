@@ -240,10 +240,10 @@ class panoramaStoryMap extends frontControllerApplication
 					$html = '<video style="width: ' . $this->settings['assetWidth'] . '; display: block;" controls="controls"><source src="' . htmlspecialchars ($path) . '" type="video/mp4" /></video>';
 					break;
 				case 'm4a':
-					$html = '<audio style="width: ' . $this->settings['assetWidth'] . '; display: block;" controls="controls"><source src="' . htmlspecialchars ($path) . '" type="audio/x-m4a" /></video>';
+					$html = '<audio style="width: ' . $this->settings['assetWidth'] . '; display: block;" controls="controls"><source src="' . htmlspecialchars ($path) . '" type="audio/x-m4a" /></audio>';
 					break;
 				case 'mp3':
-					$html = '<audio style="width: ' . $this->settings['assetWidth'] . '; display: block;" controls="controls"><source src="' . htmlspecialchars ($path) . '" type="audio/mpeg" /></video>';
+					$html = '<audio style="width: ' . $this->settings['assetWidth'] . '; display: block;" controls="controls"><source src="' . htmlspecialchars ($path) . '" type="audio/mpeg" /></audio>';
 					break;
 				case 'jpg':
 				case 'jpeg':
