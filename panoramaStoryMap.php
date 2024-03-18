@@ -210,6 +210,9 @@ class panoramaStoryMap extends frontControllerApplication
 		# Start replacements
 		$replacements = array ();
 		
+		# General cleanups
+		$replacements['&nbsp;'] = ' ';
+		
 		# Replace language blocks; see also below
 		$replacements['{{es: '] = '<div class="language" data-language="es">';
 		$replacements['{{en: '] = '<div class="language" data-language="en">';
