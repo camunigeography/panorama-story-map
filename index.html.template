@@ -2,14 +2,14 @@
 
 # Settings
 $settings = array (
-	'hostname' => 'localhost',
+	'applicationName' => 'Widget spheres',
 	'username' => 'my_username',
 	'password' => 'my_password',
 	'maptilerApiKey' => 'my_key',
 );
 
 # Load and run the application with the above settings
-require_once ('panoramaStoryMap.php');
+require_once ('vendor/autoload.php');
 new panoramaStoryMap ($settings);
 
 ?>
