@@ -266,7 +266,7 @@ class panoramaStoryMap extends frontControllerApplication
 		}
 		
 		# Replace filenames with tags, in the data file
-		$js = strtr ($js, $replacements);
+		$js = str_replace (array_keys ($replacements), array_values ($replacements), $js);		// Maintains order, unlike strtr
 		
 		# Add javascript code to end
 		$js .= "\n" . $this->customJs ();
