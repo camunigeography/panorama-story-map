@@ -828,3 +828,8 @@ body.view-control-buttons .viewControlButton {
 .viewControlButton-6 {
   margin-left: 105px;
 }
+
+
+
+/* LOCAL overrides */
+body .info-hotspot .info-hotspot-header {background-color: blue;}
