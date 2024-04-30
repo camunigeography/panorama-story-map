@@ -30,11 +30,11 @@ function panoramaStoryMap (config)
 	// Fly in after initial load
 	map.on ('load', function () {
 		map.flyTo ({
-			maxDuration: 4000,
+			duration: 2000,
 			essential: true,
-			center: [-72.3931, -43.1210],
-			zoom: 9,
-			pitch: 60,
+			center: [-60, -23.32],
+			zoom: 2.3,
+			pitch: 0,
 		});
 	});
 	
