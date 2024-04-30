@@ -18,6 +18,7 @@
 	Use MacroSinenomineEmbeddedTable "$baseUrl" "/edit" "edit"
 	
 	# Scenes
+	RewriteRule ^$baseUrl/scenes/([^/]+)/(index.js|style.css) $baseUrl/marzipano-customised/$2 [L]
 	RewriteRule ^$baseUrl/scenes/([^/]+)/(.+)$ $baseUrl/scenes/$1/app-files/$2 [L]
 	<Location $baseUrl/scenes/>
 		php_value auto_prepend_file none
