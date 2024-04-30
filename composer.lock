@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5fbcd90addb9f2aa7dac00159ccc8b33",
+    "content-hash": "992397ff58a285695b73ad027ec7fcf6",
     "packages": [
         {
             "name": "camunigeography/camunidata",
@@ -206,16 +206,16 @@
         },
         {
             "name": "libpurecontent/frontcontrollerapplication",
-            "version": "v1.13.2",
+            "version": "v1.13.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/libpurecontent/frontcontrollerapplication.git",
-                "reference": "d424dc8effa33bf90a4774038f4b67d31bad23a4"
+                "reference": "9033b4e8a9bd279a430eb4831137586ab64db975"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/libpurecontent/frontcontrollerapplication/zipball/d424dc8effa33bf90a4774038f4b67d31bad23a4",
-                "reference": "d424dc8effa33bf90a4774038f4b67d31bad23a4",
+                "url": "https://api.github.com/repos/libpurecontent/frontcontrollerapplication/zipball/9033b4e8a9bd279a430eb4831137586ab64db975",
+                "reference": "9033b4e8a9bd279a430eb4831137586ab64db975",
                 "shasum": ""
             },
             "require": {
@@ -246,9 +246,9 @@
             "description": "PHP library frontControllerApplication within the pureContent library suite",
             "support": {
                 "issues": "https://github.com/libpurecontent/frontcontrollerapplication/issues",
-                "source": "https://github.com/libpurecontent/frontcontrollerapplication/tree/v1.13.2"
+                "source": "https://github.com/libpurecontent/frontcontrollerapplication/tree/v1.13.5"
             },
-            "time": "2024-01-26T18:52:57+00:00"
+            "time": "2024-04-18T14:45:15+00:00"
         },
         {
             "name": "libpurecontent/image",
@@ -291,21 +291,20 @@
         },
         {
             "name": "libpurecontent/pagination",
-            "version": "v1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/libpurecontent/pagination.git",
-                "reference": "5448f2481ab8167827422b3c6159a2043828064d"
+                "reference": "8fd430cfa0af4bf20361420b2169e9ad99097ba3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/libpurecontent/pagination/zipball/5448f2481ab8167827422b3c6159a2043828064d",
-                "reference": "5448f2481ab8167827422b3c6159a2043828064d",
+                "url": "https://api.github.com/repos/libpurecontent/pagination/zipball/8fd430cfa0af4bf20361420b2169e9ad99097ba3",
+                "reference": "8fd430cfa0af4bf20361420b2169e9ad99097ba3",
                 "shasum": ""
             },
             "require": {
                 "libpurecontent/application": "^1.9",
-                "libpurecontent/purecontent": "^1.13",
                 "libpurecontent/ultimateform": "^1.29"
             },
             "type": "library",
@@ -326,45 +325,9 @@
             "description": "PHP library pagination within the pureContent library suite",
             "support": {
                 "issues": "https://github.com/libpurecontent/pagination/issues",
-                "source": "https://github.com/libpurecontent/pagination/tree/v1.1.1"
+                "source": "https://github.com/libpurecontent/pagination/tree/v1.1.2"
             },
-            "time": "2024-01-26T14:37:34+00:00"
-        },
-        {
-            "name": "libpurecontent/purecontent",
-            "version": "v1.13.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/libpurecontent/purecontent.git",
-                "reference": "a1d0f9de7d188bfbfc2b6f75489244ce70003569"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/libpurecontent/purecontent/zipball/a1d0f9de7d188bfbfc2b6f75489244ce70003569",
-                "reference": "a1d0f9de7d188bfbfc2b6f75489244ce70003569",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "pureContent": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0-only"
-            ],
-            "authors": [
-                {
-                    "name": "mvl22"
-                }
-            ],
-            "description": "PHP library pureContent within the pureContent library suite",
-            "support": {
-                "issues": "https://github.com/libpurecontent/purecontent/issues",
-                "source": "https://github.com/libpurecontent/purecontent/tree/v1.13.1"
-            },
-            "time": "2024-01-26T13:26:27+00:00"
+            "time": "2024-01-26T18:39:17+00:00"
         },
         {
             "name": "libpurecontent/sinenomine",
@@ -447,16 +410,16 @@
         },
         {
             "name": "libpurecontent/ultimateform",
-            "version": "v1.29.1",
+            "version": "v1.29.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/libpurecontent/ultimateform.git",
-                "reference": "cb70f64b803c3efc2b2462e72776e9931e34daa3"
+                "reference": "442b39cc03898a106598932f3d967b4e8e65395f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/libpurecontent/ultimateform/zipball/cb70f64b803c3efc2b2462e72776e9931e34daa3",
-                "reference": "cb70f64b803c3efc2b2462e72776e9931e34daa3",
+                "url": "https://api.github.com/repos/libpurecontent/ultimateform/zipball/442b39cc03898a106598932f3d967b4e8e65395f",
+                "reference": "442b39cc03898a106598932f3d967b4e8e65395f",
                 "shasum": ""
             },
             "require": {
@@ -482,22 +445,22 @@
             "description": "PHP library ultimateForm within the pureContent library suite",
             "support": {
                 "issues": "https://github.com/libpurecontent/ultimateform/issues",
-                "source": "https://github.com/libpurecontent/ultimateform/tree/v1.29.1"
+                "source": "https://github.com/libpurecontent/ultimateform/tree/v1.29.6"
             },
-            "time": "2024-01-26T14:46:13+00:00"
+            "time": "2024-04-18T13:33:17+00:00"
         },
         {
             "name": "libpurecontent/useraccount",
-            "version": "v1.7.2",
+            "version": "v1.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/libpurecontent/useraccount.git",
-                "reference": "ab5fa1326f6fd57ae1c26ffd0b9beec116c1dc7e"
+                "reference": "822f6986c6ab01b3f214d6e125205c594a0548b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/libpurecontent/useraccount/zipball/ab5fa1326f6fd57ae1c26ffd0b9beec116c1dc7e",
-                "reference": "ab5fa1326f6fd57ae1c26ffd0b9beec116c1dc7e",
+                "url": "https://api.github.com/repos/libpurecontent/useraccount/zipball/822f6986c6ab01b3f214d6e125205c594a0548b8",
+                "reference": "822f6986c6ab01b3f214d6e125205c594a0548b8",
                 "shasum": ""
             },
             "require": {
@@ -523,9 +486,9 @@
             "description": "PHP library userAccount within the pureContent library suite",
             "support": {
                 "issues": "https://github.com/libpurecontent/useraccount/issues",
-                "source": "https://github.com/libpurecontent/useraccount/tree/v1.7.2"
+                "source": "https://github.com/libpurecontent/useraccount/tree/v1.7.3"
             },
-            "time": "2024-02-07T13:35:24+00:00"
+            "time": "2024-02-22T15:38:22+00:00"
         },
         {
             "name": "pear/console_getopt",
@@ -647,16 +610,16 @@
         },
         {
             "name": "pear/pear-core-minimal",
-            "version": "v1.10.14",
+            "version": "v1.10.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/pear-core-minimal.git",
-                "reference": "a86fc145edb5caedbf96527214ce3cadc9de4a32"
+                "reference": "ce0adade8b97561656ace07cdaac4751c271ea8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/pear-core-minimal/zipball/a86fc145edb5caedbf96527214ce3cadc9de4a32",
-                "reference": "a86fc145edb5caedbf96527214ce3cadc9de4a32",
+                "url": "https://api.github.com/repos/pear/pear-core-minimal/zipball/ce0adade8b97561656ace07cdaac4751c271ea8c",
+                "reference": "ce0adade8b97561656ace07cdaac4751c271ea8c",
                 "shasum": ""
             },
             "require": {
@@ -669,9 +632,9 @@
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "": "src/"
-                }
+                "classmap": [
+                    "src/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "include-path": [
@@ -692,7 +655,7 @@
                 "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=PEAR",
                 "source": "https://github.com/pear/pear-core-minimal"
             },
-            "time": "2023-11-26T16:15:38+00:00"
+            "time": "2024-03-16T18:41:45+00:00"
         },
         {
             "name": "pear/pear_exception",
@@ -817,16 +780,16 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v4.3.5",
+            "version": "v4.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "e0cbbdf6ea21768d0194e59d2f8c2e20d5f0868c"
+                "reference": "732040276609d0c3ad3381781c7444e7c5df9456"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/e0cbbdf6ea21768d0194e59d2f8c2e20d5f0868c",
-                "reference": "e0cbbdf6ea21768d0194e59d2f8c2e20d5f0868c",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/732040276609d0c3ad3381781c7444e7c5df9456",
+                "reference": "732040276609d0c3ad3381781c7444e7c5df9456",
                 "shasum": ""
             },
             "require": {
@@ -877,9 +840,9 @@
             "support": {
                 "forum": "https://github.com/smarty-php/smarty/discussions",
                 "issues": "https://github.com/smarty-php/smarty/issues",
-                "source": "https://github.com/smarty-php/smarty/tree/v4.3.5"
+                "source": "https://github.com/smarty-php/smarty/tree/v4.5.2"
             },
-            "time": "2024-01-23T10:47:54+00:00"
+            "time": "2024-04-05T22:34:05+00:00"
         }
     ],
     "packages-dev": [],
