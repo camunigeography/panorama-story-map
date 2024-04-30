@@ -32,9 +32,9 @@ function panoramaStoryMap (config)
 		map.flyTo ({
 			duration: 2000,
 			essential: true,
-			center: [-60, -23.32],
-			zoom: 2.3,
-			pitch: 0,
+			center: config.flyTo.center,
+			zoom: config.flyTo.zoom,
+			pitch: config.flyTo.pitch,
 		});
 	});
 	

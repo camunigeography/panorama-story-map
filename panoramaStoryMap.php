@@ -20,6 +20,11 @@ class panoramaStoryMap extends frontControllerApplication
 			'apiUsername'			=> true,
 			'maptilerApiKey'		=> NULL,
 			'assetWidth'			=> '100%',	// Or e.g. '260px'
+			'flyTo'					=> array (
+				'center'				=> array (-60, -23.32),
+				'zoom'					=> 2.3,
+				'pitch'					=> 0,
+			),
 		);
 		
 		# Return the defaults
@@ -101,7 +106,7 @@ class panoramaStoryMap extends frontControllerApplication
 	public function home ()
 	{
 		# Set the config
-		$config = application::arrayFields ($this->settings, array ('maptilerApiKey'));
+		$config = application::arrayFields ($this->settings, array ('maptilerApiKey', 'flyTo'));
 		$this->template['configJson'] = json_encode ($config, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 		
 		# Process the template
