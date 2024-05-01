@@ -351,9 +351,9 @@
       wrapper.classList.toggle('visible');
       modal.classList.toggle('visible');
       
-      // Pause any audio in the box
+      // LOCAL CHANGE: If an audio element is present, treat box open/close as implied play/pause
       wrapper.querySelectorAll('audio').forEach(function(player) {
-        player.pause();
+        (modal.classList.contains('visible') ? player.play() : player.pause());
       });
     };
 
