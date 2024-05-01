@@ -68,49 +68,66 @@ const panoramaStoryMap = (function ()
 		// Load data
 		loadData: function ()
 		{
-			// Load and show the data
-			_map.on ('load', function () {
-				fetch ('api/locations')
-					.then (function (response) {return response.json ();})
-					.then (function (geojson) {
-						
-						// Construct the DOM representation for an icon
-						// See: https://docs.mapbox.com/mapbox-gl-js/example/custom-marker-icons/
-						// This all has to be done manually in the DOM, unfortunately, as Mapbox GL JS has no support for native dynamically-defined markers
-						const createIconDom = function (iconUrl, iconSize)
-						{
-							// Create the marker
-							var marker = document.createElement ('img');
-							marker.setAttribute ('src', iconUrl);
-							marker.className = 'marker';
-							marker.style.width = iconSize[0] + 'px';
-							marker.style.height = iconSize[1] + 'px';
-							marker.style.cursor = 'pointer';
-							
-							// Return the marker
-							return marker;
-						};
-						
-						// Popup content
-						const popupHtml = function (feature)
-						{
-							const sceneUrl = 'scenes/' + feature.properties.id + '/';
-							let html = '<h3><a href="' + sceneUrl + '">' + feature.properties.title + '</a></h3>';
-							html    += '<p>' + feature.properties.description + '</p>';
-							html    += '<p><a href="' + sceneUrl + '"><img src="' + feature.properties.thumbnail + '"></a></p>';
-							return html;
-						};
-						
-						// Add each marker
-						for (const feature of geojson.features) {
-							const image = createIconDom ('images/marker.png', [60, 60]);	// Icon from https://emojipedia.org/volcano/
-							const popup = new maplibregl.Popup ().setHTML (popupHtml (feature));
-							new maplibregl.Marker ({element: image})
-								.setLngLat (feature.geometry.coordinates)
-								.setPopup (popup)
-								.addTo (_map);
-						};
+			// Function to load the markers
+			fetch ('api/locations')
+			.then (function (response) {return response.json ();})
+			.then (function (geojson) {
+				
+				// Create a registry of markers
+				let markers = [];
+				
+				// Define a function to load markers
+				const loadMarkers = function ()
+				{
+					// Remove any existing markers
+					markers.forEach (function (marker) {
+						marker.remove ();
 					});
+					
+					// Construct the DOM representation for an icon
+					// See: https://docs.mapbox.com/mapbox-gl-js/example/custom-marker-icons/
+					// This all has to be done manually in the DOM, unfortunately, as Mapbox GL JS has no support for native dynamically-defined markers
+					const createIconDom = function (iconUrl, iconSize)
+					{
+						// Create the marker
+						var marker = document.createElement ('img');
+						marker.setAttribute ('src', iconUrl);
+						marker.className = 'marker';
+						marker.style.width = iconSize[0] + 'px';
+						marker.style.height = iconSize[1] + 'px';
+						marker.style.cursor = 'pointer';
+						
+						// Return the marker
+						return marker;
+					};
+					
+					// Popup content
+					const popupHtml = function (feature)
+					{
+						const sceneUrl = 'scenes/' + feature.properties.id + '/';
+						let html = '<h3><a href="' + sceneUrl + '">' + feature.properties.title + '</a></h3>';
+						html    += '<p>' + feature.properties.description + '</p>';
+						html    += '<p><a href="' + sceneUrl + '"><img src="' + feature.properties.thumbnail + '"></a></p>';
+						return html;
+					};
+					
+					// Add each marker
+					for (const feature of geojson.features) {
+						const image = createIconDom ('images/marker.png', [60, 60]);	// Icon from https://emojipedia.org/volcano/
+						const popup = new maplibregl.Popup ().setHTML (popupHtml (feature));
+						const marker = new maplibregl.Marker ({element: image})
+							.setLngLat (feature.geometry.coordinates)
+							.setPopup (popup)
+							.addTo (_map);
+						
+						// Add marker to registry, so it can be later destroyed if needed
+						markers.push (marker);
+					};
+				};
+						
+				// Load and show the data, on load and on moveend
+				_map.on ('load', loadMarkers);
+				_map.on ('moveend', loadMarkers);
 			});
 		}
 	};
