@@ -355,6 +355,14 @@
       wrapper.querySelectorAll('audio').forEach(function(player) {
         (modal.classList.contains('visible') ? player.play() : player.pause());
       });
+      
+      // LOCAL CHANGE: On opening, close any other hotspots, i.e. treat hotspots as singletons
+      if (modal.classList.contains('visible')) {
+        document.querySelectorAll('.hotspot.visible').forEach(function(openedHotspotWrapper) {
+          if (openedHotspotWrapper == wrapper) {return /* i.e. continue */;}   // Skip self
+          openedHotspotWrapper.querySelector('.info-hotspot-close-wrapper').click();
+        })
+      }
     };
 
     // Show content when hotspot is clicked.
