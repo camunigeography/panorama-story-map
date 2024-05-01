@@ -351,8 +351,8 @@
       wrapper.classList.toggle('visible');
       modal.classList.toggle('visible');
       
-      // LOCAL CHANGE: If an audio element is present, treat box open/close as implied play/pause
-      wrapper.querySelectorAll('audio').forEach(function(player) {
+      // LOCAL CHANGE: If an audio/video element is present, treat box open/close as implied play/pause
+      wrapper.querySelectorAll('audio, video').forEach(function(player) {
         (modal.classList.contains('visible') ? player.play() : player.pause());
       });
       
