@@ -366,6 +366,13 @@ class panoramaStoryMap extends frontControllerApplication
 		# Get location data
 		$locations = $this->databaseConnection->select ($this->settings['database'], $this->settings['table']);
 		
+		# Omit locations without a scene folder
+		foreach ($locations as $id => $location) {
+			if (!is_dir ($_SERVER['DOCUMENT_ROOT'] . $this->baseUrl . '/scenes/' . $id . '/')) {
+				unset ($locations[$id]);
+			}
+		}
+		
 		# Fix up decimal columns
 		#!# This needs to be available as an option in FCA passed through to database.php
 		foreach ($locations as $id => $location) {
