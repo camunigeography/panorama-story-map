@@ -9,3 +9,4 @@
 #panoramastorymap .maplibregl-popup-close-button {font-size: 16px; font-family: Tahoma, Verdana, sans-serif; color: #c3c3c3; font-weight: bold;}
 #panoramastorymap .maplibregl-popup-close-button:hover {color: #999; background-color: white; border-top-right-radius: 12px;}
 #panoramastorymap .maplibregl-map {line-height: 1.4;}
+#panoramastorymap #map.zoomedout .maplibregl-canvas-container {cursor: zoom-in;}

@@ -83,6 +83,14 @@ const panoramaStoryMap = (function ()
 			_map.on ('moveend', function () {
 				setZoomState ();
 			});
+			
+			// If zoomed out, make a click on the map be an implied zoom in
+			_map.on ('click', function (e) {
+				if (!_mapZoomEnough) {
+					const newZoom = _settings.minZoom;
+					_map.flyTo ({zoom: newZoom, center: e.lngLat});
+				}
+			});
 		},
 		
 		
@@ -116,7 +124,11 @@ const panoramaStoryMap = (function ()
 						marker.className = 'marker';
 						marker.style.width = iconSize[0] + 'px';
 						marker.style.height = iconSize[1] + 'px';
-						marker.style.cursor = 'pointer';
+						
+						// Set pointer, if sufficiently zoomed
+						if (_mapZoomEnough) {
+							marker.style.cursor = 'pointer';
+						}
 						
 						// Return the marker
 						return marker;
@@ -135,11 +147,15 @@ const panoramaStoryMap = (function ()
 					// Add each marker
 					for (const feature of geojson.features) {
 						const image = createIconDom ('images/marker.png', [60, 60]);	// Icon from https://emojipedia.org/volcano/
-						const popup = new maplibregl.Popup ().setHTML (popupHtml (feature));
 						const marker = new maplibregl.Marker ({element: image})
 							.setLngLat (feature.geometry.coordinates)
-							.setPopup (popup)
 							.addTo (_map);
+						
+						// Add popup, if sufficiently zoomed
+						if (_mapZoomEnough) {
+							const popup = new maplibregl.Popup ().setHTML (popupHtml (feature));
+							marker.setPopup (popup);
+						}
 						
 						// Add marker to registry, so it can be later destroyed if needed
 						markers.push (marker);
