@@ -19,8 +19,8 @@ const panoramaStoryMap = (function ()
 			// Create the map
 			panoramaStoryMap.createMap ();
 			
-			// Load the data
-			panoramaStoryMap.loadData ();
+			// Add the marker layer
+			panoramaStoryMap.addMarkerLayer ();
 		},
 		
 		
@@ -65,8 +65,8 @@ const panoramaStoryMap = (function ()
 		},
 		
 		
-		// Load data
-		loadData: function ()
+		// Add marker layer
+		addMarkerLayer: function ()
 		{
 			// Function to load the markers
 			fetch ('api/locations')
