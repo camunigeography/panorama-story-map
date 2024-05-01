@@ -350,6 +350,11 @@
     var toggle = function() {
       wrapper.classList.toggle('visible');
       modal.classList.toggle('visible');
+      
+      // Pause any audio in the box
+      wrapper.querySelectorAll('audio').forEach(function(player) {
+        player.pause();
+      });
     };
 
     // Show content when hotspot is clicked.
