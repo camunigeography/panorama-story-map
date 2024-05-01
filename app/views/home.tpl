@@ -9,7 +9,7 @@
 <script>
 	document.addEventListener ('DOMContentLoaded', function () {
 		const config = {$configJson};
-		new panoramaStoryMap (config);
+		panoramaStoryMap.initialise (config);
 	});
 </script>
 
