@@ -25,6 +25,7 @@ class panoramaStoryMap extends frontControllerApplication
 				'zoom'					=> 2.3,
 				'pitch'					=> 0,
 			),
+			'minZoom'				=> 6,
 		);
 		
 		# Return the defaults
@@ -106,7 +107,7 @@ class panoramaStoryMap extends frontControllerApplication
 	public function home ()
 	{
 		# Set the config
-		$config = application::arrayFields ($this->settings, array ('maptilerApiKey', 'flyTo'));
+		$config = application::arrayFields ($this->settings, array ('maptilerApiKey', 'flyTo', 'minZoom'));
 		$this->template['configJson'] = json_encode ($config, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 		
 		# Process the template

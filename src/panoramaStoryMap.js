@@ -6,6 +6,7 @@ const panoramaStoryMap = (function ()
 	// Class properties
 	let _map;
 	let _settings;
+	let _mapZoomEnough = false;
 	
 	
 	return {
@@ -18,6 +19,9 @@ const panoramaStoryMap = (function ()
 			
 			// Create the map
 			panoramaStoryMap.createMap ();
+			
+			// Add minZoom state handler
+			panoramaStoryMap.zoomState ();
 			
 			// Add the marker layer
 			panoramaStoryMap.addMarkerLayer ();
@@ -61,6 +65,23 @@ const panoramaStoryMap = (function ()
 					zoom: _settings.flyTo.zoom,
 					pitch: _settings.flyTo.pitch,
 				});
+			});
+		},
+		
+		
+		// Function to handle minZoom requirement
+		zoomState: function ()
+		{
+			// Handler function to set state
+			const setZoomState = function () {
+				_mapZoomEnough = (_map.getZoom () >= _settings.minZoom);
+				document.querySelector('#map').classList.toggle ('zoomedout', !_mapZoomEnough);
+			};
+			
+			// Set state on start and upon map move
+			setZoomState ();
+			_map.on ('moveend', function () {
+				setZoomState ();
 			});
 		},
 		
