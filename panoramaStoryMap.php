@@ -380,6 +380,16 @@ class panoramaStoryMap extends frontControllerApplication
 			$locations[$id]['lat'] = (float) $location['lat'];
 		}
 		
+		# Add in preview image
+		foreach ($locations as $id => $location) {
+			$previewSearchPath = $_SERVER['DOCUMENT_ROOT'] . $this->baseUrl . '/scenes/' . $id . '/app-files/tiles/0-*/preview.jpg';
+			$files = glob ($previewSearchPath);
+			$thumbnailFile = $files[0];
+			$thumbnailPath = preg_replace ("|^{$_SERVER['DOCUMENT_ROOT']}|", '', $thumbnailFile);
+			$thumbnailPath = str_replace ('app-files/', '', $thumbnailPath);	// Removed in server rewrite
+			$locations[$id]['thumbnail'] = $thumbnailPath;
+		}
+		
 		# Convert to GeoJSON
 		$geojson = array ('type' => 'FeatureCollection', 'features' => array ());
 		foreach ($locations as $location) {
@@ -389,7 +399,7 @@ class panoramaStoryMap extends frontControllerApplication
 					'type' => 'Point',
 					'coordinates' => array ($location['lon'], $location['lat']),
 				),
-				'properties' => application::arrayFields ($location, array ('id', 'title', 'description')),
+				'properties' => application::arrayFields ($location, array ('id', 'title', 'thumbnail', 'description')),
 			);
 		}
 		

@@ -67,7 +67,7 @@ function panoramaStoryMap (config)
 					const sceneUrl = 'scenes/' + feature.properties.id + '/';
 					let html = '<h3><a href="' + sceneUrl + '">' + feature.properties.title + '</a></h3>';
 					html    += '<p>' + feature.properties.description + '</p>';
-					html    += '<p><a href="' + sceneUrl + '"><img src="thumbnails/' + feature.properties.id + '.jpg" width="300" height="225" border="0"></a></p>"';
+					html    += '<p><a href="' + sceneUrl + '"><img src="' + feature.properties.thumbnail + '"></a></p>';
 					return html;
 				};
 				
