@@ -15,6 +15,6 @@
 
 
 <p>Browse our map to hear and see volcano voices from around the sites, in a 360° scene.</p>
-<p>Within each scene, you can click on an ⓘ button to listen, see, or read more.</p>
+<p>Within each scene, you can click on a hotspot to listen, see, or read more.</p>
 
 <div id="map"></div>
