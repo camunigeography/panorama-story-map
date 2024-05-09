@@ -41,6 +41,11 @@ const panoramaStoryMap = (function ()
 				maxZoom: 13
 			});
 			
+			// Set background map opacity, to help the icons stand out more
+			_map.on ('load', function () {
+				_map.setPaintProperty('Satellite', 'raster-opacity', 0.7);
+			});
+			
 			// Enable controls
 			_map.addControl (new maplibregl.NavigationControl ());
 			
