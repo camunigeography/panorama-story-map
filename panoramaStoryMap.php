@@ -88,6 +88,7 @@ class panoramaStoryMap extends frontControllerApplication
 			  `lat` decimal(10,8) NOT NULL COMMENT 'Latitude',
 			  `sceneFile` varchar(255) NOT NULL COMMENT 'Scene .zip from Marzipano',
 			  `assetsFile` varchar(255) NOT NULL COMMENT 'Assets .zip file',
+			  `live` tinyint DEFAULT NULL COMMENT 'Live?',
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Table of scenes';
 		";
@@ -141,6 +142,7 @@ class panoramaStoryMap extends frontControllerApplication
 					$this->settings['table'] => array ($this, 'processUploadedFiles_callback'),
 				),
 			),
+			'int1ToCheckbox' => true,
 		);
 		$dataBindingAttributes = array (
 			'id' => array ('prepend' => '/scenes/', 'append' => '/', 'regexp' => '^[-a-z0-9]+$', 'description' => 'Lower-case a-z, 0-9, hyphens only'),
@@ -364,8 +366,14 @@ class panoramaStoryMap extends frontControllerApplication
 	# API call for locations
 	public function apiCall_locations ()
 	{
+		# Set constraints
+		$conditions = array ();
+		if (!$this->userIsAdministrator) {
+			$conditions['live'] = 1;
+		}
+		
 		# Get location data
-		$locations = $this->databaseConnection->select ($this->settings['database'], $this->settings['table']);
+		$locations = $this->databaseConnection->select ($this->settings['database'], $this->settings['table'], $conditions);
 		
 		# Omit locations without a scene folder
 		foreach ($locations as $id => $location) {
