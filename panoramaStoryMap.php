@@ -243,7 +243,7 @@ class panoramaStoryMap extends frontControllerApplication
 			# Create HTML tag for each file
 			$filename = pathinfo ($file, PATHINFO_BASENAME);
 			$path = $this->baseUrl . '/assets/' . $id . '/' . $filename;
-			switch (pathinfo ($file, PATHINFO_EXTENSION )) {
+			switch (pathinfo ($file, PATHINFO_EXTENSION)) {
 				case 'mp4':
 					$html = '<video style="width: ' . $this->settings['assetWidth'] . '; display: block;" controls="controls"><source src="' . htmlspecialchars ($path) . '" type="video/mp4" /></video>';
 					break;
@@ -264,6 +264,8 @@ class panoramaStoryMap extends frontControllerApplication
 					$url = $matches[1];
 					$html = '<a href="' . htmlspecialchars ($url) . '" target="_blank" title="[Link opens in a new window]">' . $websiteLinkText . '</a>';
 					break;
+				default:	// Unsupported format
+					continue 2;		// Next $file
 			}
 			
 			# Register replacement
