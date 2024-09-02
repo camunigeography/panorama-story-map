@@ -84,7 +84,7 @@ class panoramaStoryMap extends frontControllerApplication
 			  `id` varchar(255) NOT NULL COMMENT 'Scene ID for URL',
 			  `title` varchar(255) NOT NULL COMMENT 'Title',
 			  `description` text COMMENT 'Description',
-			  `lon` decimal(10,8) NOT NULL COMMENT 'Longitude',
+			  `lon` decimal(10,7) NOT NULL COMMENT 'Longitude',
 			  `lat` decimal(10,8) NOT NULL COMMENT 'Latitude',
 			  `sceneFile` varchar(255) NOT NULL COMMENT 'Scene .zip from Marzipano',
 			  `assetsFile` varchar(255) NOT NULL COMMENT 'Assets .zip file',
