@@ -13,8 +13,9 @@
 	});
 </script>
 
-
-<p>Browse our map to hear and see volcano voices from around the sites, in a 360° scene.</p>
-<p>Within each scene, you can click on a hotspot to listen, see, or read more.</p>
+{if $userIsAdministrator}
+	<p class="actions right"><a href="{$baseUrl}/settings.html#form_introductionHtml"><img src="/images/icons/pencil.png" class="icon" /> Edit introduction text</a></p>
+{/if}
+{$introductionHtml}
 
 <div id="map"></div>

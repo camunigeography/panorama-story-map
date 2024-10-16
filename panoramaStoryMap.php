@@ -74,10 +74,10 @@ class panoramaStoryMap extends frontControllerApplication
 			
 			-- Settings
 			CREATE TABLE IF NOT EXISTS `settings` (
-			  `id` int NOT NULL AUTO_INCREMENT COMMENT 'Automatic key (ignored)' PRIMARY KEY,
-			  `somesetting` varchar(255) NOT NULL COMMENT 'Some setting'
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Settings';
-			INSERT INTO settings (id) VALUES (1);
+			  `id` int NOT NULL COMMENT 'Automatic key (ignored) PRIMARY KEY',
+			  `introductionHtml` MEDIUMTEXT NOT NULL COMMENT 'Home page introduction'
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Settings';
+
 			
 			-- My scenes
 			CREATE TABLE `scenes` (
@@ -107,7 +107,10 @@ class panoramaStoryMap extends frontControllerApplication
 	# Home page
 	public function home ()
 	{
-		# Set the config
+		# Set the introduction text
+		$this->template['introductionHtml'] = $this->settings['introductionHtml'];
+		
+		# Set the map config
 		$config = application::arrayFields ($this->settings, array ('maptilerApiKey', 'flyTo', 'minZoom'));
 		$this->template['configJson'] = json_encode ($config, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 		
