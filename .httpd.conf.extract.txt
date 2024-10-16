@@ -20,6 +20,7 @@
 	# Scenes
 	RewriteRule ^$baseUrl/scenes/([^/]+)/(index.js|style.css)$ $baseUrl/marzipano-customised/$2 [L]
 	RewriteRule ^$baseUrl/scenes/([^/]+)/img/(play).png $baseUrl/marzipano-customised/img/$2.png [L]
+	RewriteRule ^$baseUrl/scenes/([^/]+)/(|index.html)$ $baseUrl/index.html?action=scene&item=$1 [L]
 	RewriteRule ^$baseUrl/scenes/([^/]+)/(.+)$ $baseUrl/scenes/$1/app-files/$2 [L]
 	RedirectMatch Permanent ^$baseUrl/scenes/?$ $baseUrl/
 	<Location $baseUrl/scenes/>

@@ -38,6 +38,11 @@ class panoramaStoryMap extends frontControllerApplication
 	{
 		# Define available actions
 		$actions = array (
+			'scene' => array (
+				'description' => false,
+				'tab' => NULL,
+				'export' => true,
+			),
 			'edit' => array (
 				'description' => false,
 				'url' => 'edit/',
@@ -122,11 +127,27 @@ class panoramaStoryMap extends frontControllerApplication
 	}
 	
 	
-	# Function to do some action
-	public function someaction ()
+	# Function to serve a scene
+	public function scene ()
 	{
-		//
-		$html = __FUNCTION__;
+		# Ensure there is a scene ID
+		if (!$this->item) {
+			$this->template['page404'] = $this->page404 ();
+			return false;
+		}
+		
+		# Validate the scene ID
+		if (!$this->databaseConnection->selectOne ($this->settings['database'], $this->settings['table'], array ('id' => $this->item))) {
+			$this->template['page404'] = $this->page404 ();
+			return false;
+		}
+		
+		# Get the file
+		$file = $this->applicationRoot . '/scenes/' . $this->item . '/app-files/index.html';
+		$this->template['sceneHtml'] = file_get_contents ($file);
+		
+		# Process the template
+		$html = $this->templatise ();
 		
 		# Show the HTML
 		echo $html;
