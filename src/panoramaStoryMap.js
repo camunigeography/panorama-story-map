@@ -53,7 +53,7 @@ const panoramaStoryMap = (function ()
 			_map.on ('load', function () {
 				_map.addSource ('terrain', {
 					type: 'raster-dem',
-					url: `https://api.maptiler.com/tiles/terrain-rgb/tiles.json?key=${_settings.maptilerApiKey}`,
+					url: `https://api.maptiler.com/tiles/terrain-rgb-v2/tiles.json?key=${_settings.maptilerApiKey}`,
 				});
 				_map.setTerrain ({
 					source: 'terrain',
