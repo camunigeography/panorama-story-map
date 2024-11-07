@@ -46,7 +46,7 @@ class panoramaStoryMap extends frontControllerApplication
 			'scene' => array (
 				'description' => false,
 				'tab' => NULL,
-				'export' => true,
+				'usetab' => 'home',
 			),
 			'edit' => array (
 				'description' => false,
@@ -172,15 +172,21 @@ class panoramaStoryMap extends frontControllerApplication
 			}
 		}
 		
+		# Clear the output buffer, in case of use of auto_prepend_file
+		ob_end_clean ();
+		
 		# Get the file
 		$file = $this->applicationRoot . '/scenes/' . $this->item . '/app-files/index.html';
 		$this->template['sceneHtml'] = file_get_contents ($file);
-		
+
 		# Process the template
 		$html = $this->templatise ();
 		
 		# Show the HTML
 		echo $html;
+		
+		# End explicitly in case of use of auto_append_file
+		exit;
 	}
 	
 	

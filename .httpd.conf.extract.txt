@@ -25,10 +25,6 @@
 	RewriteRule ^$baseUrl/scenes/([^/]+)/(|index.html)$ $baseUrl/index.html?action=scene&item=$1 [L]
 	RewriteRule ^$baseUrl/scenes/([^/]+)/(.+)$ $baseUrl/scenes/$1/app-files/$2 [L]
 	RedirectMatch Permanent ^$baseUrl/scenes/?$ $baseUrl/
-	<Location $baseUrl/scenes/>
-		php_value auto_prepend_file none
-		php_value auto_append_file none
-	</Location>
 	
 	# Editing - allow large file uploads
 	<Location $baseUrl/edit/>
