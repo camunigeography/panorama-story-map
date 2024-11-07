@@ -151,7 +151,7 @@ const panoramaStoryMap = (function ()
 					
 					// Add each marker
 					for (const feature of geojson.features) {
-						const image = createIconDom ('images/marker.png', [60, 60]);	// Icon from https://emojipedia.org/volcano/
+						const image = createIconDom ('images/marker.png', [50, 56]);	// Icon from https://emojipedia.org/volcano/
 						const marker = new maplibregl.Marker ({element: image})
 							.setLngLat (feature.geometry.coordinates)
 							.addTo (_map);
