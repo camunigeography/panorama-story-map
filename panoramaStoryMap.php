@@ -99,6 +99,7 @@ class panoramaStoryMap extends frontControllerApplication
 			  `lat` decimal(10,8) NOT NULL COMMENT 'Latitude',
 			  `sceneFile` varchar(255) NOT NULL COMMENT 'Scene .zip from Marzipano',
 			  `assetsFile` varchar(255) NOT NULL COMMENT 'Assets .zip file',
+			  `protected` VARCHAR(255) NULL DEFAULT NULL COMMENT 'Password (if required) for this location',
 			  `live` tinyint DEFAULT NULL COMMENT 'Live?',
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Table of scenes';
@@ -157,9 +158,18 @@ class panoramaStoryMap extends frontControllerApplication
 		}
 		
 		# Validate the scene ID
-		if (!$this->databaseConnection->selectOne ($this->settings['database'], $this->settings['table'], array ('id' => $this->item))) {
+		if (!$scene = $this->databaseConnection->selectOne ($this->settings['database'], $this->settings['table'], array ('id' => $this->item))) {
 			$this->template['page404'] = $this->page404 ();
 			return false;
+		}
+		
+		# Require password if protected
+		if ($scene['protected']) {
+			if (!$this->passwordForm ($scene['protected'], $this->template['passwordForm'])) {
+				$html = $this->templatise ();
+				echo $html;
+				return false;
+			}
 		}
 		
 		# Get the file
@@ -171,6 +181,32 @@ class panoramaStoryMap extends frontControllerApplication
 		
 		# Show the HTML
 		echo $html;
+	}
+	
+	
+	# Password form
+	public function passwordForm ($password, &$html = '')
+	{
+		# Create the form
+		$form = new form (array (
+			'display' => 'paragraphs',
+			'displayRestrictions' => false,
+			'requiredFieldIndicator' => false,
+			'autofocus' => true,
+			'formCompleteText' => false,
+		));
+		$form->password (array (
+			'name' => 'password',
+			'title' => 'This section requires a password - please enter it',
+			'required' => true,
+			'regexp' => '^' . preg_quote ($password, '/') . '$',
+		));
+		if (!$result = $form->process ()) {
+			return false;
+		}
+		
+		# Return success
+		return true;
 	}
 	
 	
