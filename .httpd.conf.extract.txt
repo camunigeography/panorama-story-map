@@ -12,6 +12,8 @@
 	Use MacroFrontControllerApplication "$baseUrl/" "Paranorama story map"
 	
 	# Application routing
+	RewriteRule ^$baseUrl/about/$ $baseUrl/index.html?action=about [L]
+	RedirectMatch Permanent ^$baseUrl/about?$ $baseUrl/about/
 	RewriteRule ^$baseUrl/admin/(regenerate)\.html$ $baseUrl/index.html?action=$1 [L]
 	
 	# Editing

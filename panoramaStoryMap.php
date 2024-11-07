@@ -38,6 +38,11 @@ class panoramaStoryMap extends frontControllerApplication
 	{
 		# Define available actions
 		$actions = array (
+			'about' => array (
+				'description' => false,
+				'url' => 'about/',
+				'tab' => 'About',
+			),
 			'scene' => array (
 				'description' => false,
 				'tab' => NULL,
@@ -80,7 +85,8 @@ class panoramaStoryMap extends frontControllerApplication
 			-- Settings
 			CREATE TABLE IF NOT EXISTS `settings` (
 			  `id` int NOT NULL COMMENT 'Automatic key (ignored) PRIMARY KEY',
-			  `introductionHtml` MEDIUMTEXT NOT NULL COMMENT 'Home page introduction'
+			  `introductionHtml` MEDIUMTEXT NOT NULL COMMENT 'Home page introduction',
+			  `aboutHtml` MEDIUMTEXT NOT NULL COMMENT 'About page content'
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Settings';
 
 			
@@ -118,6 +124,20 @@ class panoramaStoryMap extends frontControllerApplication
 		# Set the map config
 		$config = application::arrayFields ($this->settings, array ('maptilerApiKey', 'flyTo', 'minZoom'));
 		$this->template['configJson'] = json_encode ($config, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+		
+		# Process the template
+		$html = $this->templatise ();
+		
+		# Show the HTML
+		echo $html;
+	}
+	
+	
+	# About page
+	public function about ()
+	{
+		# Set the introduction text
+		$this->template['aboutHtml'] = $this->settings['aboutHtml'];
 		
 		# Process the template
 		$html = $this->templatise ();
