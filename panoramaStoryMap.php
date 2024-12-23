@@ -363,7 +363,7 @@ class panoramaStoryMap extends frontControllerApplication
 			}
 			
 			# Register replacement
-			$replacements[$filename] = $html;
+			$replacements[$filename] = '<p>' . $html . '</p><br />';
 		}
 		
 		# Convert replacments to escape " as the strings in the file are "-quoted
