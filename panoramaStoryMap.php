@@ -304,6 +304,13 @@ class panoramaStoryMap extends frontControllerApplication
 		# Start replacements
 		$replacements = array ();
 		
+		# Clean out span tags, which sometimes contain fonts, etc.; this is done at the start, to ensure this acts only on the original code, not anything new generated below
+		preg_match_all ('@(<span([^>]+)>|</span>)@', $js, $matches, PREG_SET_ORDER);
+		foreach ($matches as $match) {
+			$styleAttribute = $match[1];
+			$replacements[$styleAttribute] = '';
+		}
+		
 		# General cleanups
 		$replacements['&nbsp;'] = ' ';
 		
@@ -358,12 +365,13 @@ class panoramaStoryMap extends frontControllerApplication
 			# Register replacement
 			$replacements[$filename] = $html;
 		}
-		//echo $id; application::dumpData ($replacements);
 		
 		# Convert replacments to escape " as the strings in the file are "-quoted
 		foreach ($replacements as $filename => $html) {
 			$replacements[$filename] = str_replace ('"', '\\"', $html);
 		}
+		
+		//echo $id; application::dumpData ($replacements);
 		
 		# Replace filenames with tags, in the data file
 		$js = str_replace (array_keys ($replacements), array_values ($replacements), $js);		// Maintains order, unlike strtr
