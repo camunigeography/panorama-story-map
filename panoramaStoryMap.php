@@ -314,9 +314,10 @@ class panoramaStoryMap extends frontControllerApplication
 		
 		# Create replacements for URLs to become hyperlinks
 		$websiteLinkText = 'Website link / Enlace de página web';
-		preg_match_all ("@(https?://.+)(?:\s|<|\"|&nbsp;)@U", $js, $matches, PREG_PATTERN_ORDER);
-		foreach ($matches[0] as $url) {
-			$replacements[$url] =  '<a href="' . $url . '" target="_blank">' . $websiteLinkText . '</a>';
+		preg_match_all ("@(https?://.+)(\s|<|\"|&nbsp;)@U", $js, $matches, PREG_SET_ORDER);
+		foreach ($matches as $match) {	// Loop through each link that has found
+			$url = $match[1];	// Backreference 1 is the URL itself
+			$replacements[$url] = '<a href="' . $url . '" target="_blank">' . $websiteLinkText . '</a>';
 		}
 		
 		# Standardise the assets file extensions and get the file list
@@ -357,7 +358,7 @@ class panoramaStoryMap extends frontControllerApplication
 			# Register replacement
 			$replacements[$filename] = $html;
 		}
-		//application::dumpData ($replacements);
+		//echo $id; application::dumpData ($replacements);
 		
 		# Convert replacments to escape " as the strings in the file are "-quoted
 		foreach ($replacements as $filename => $html) {
