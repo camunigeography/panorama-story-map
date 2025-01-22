@@ -474,7 +474,7 @@ class panoramaStoryMap extends frontControllerApplication
 		
 		# Omit locations without a scene folder
 		foreach ($locations as $id => $location) {
-			if (!is_dir ($_SERVER['DOCUMENT_ROOT'] . $this->baseUrl . '/scenes/' . $id . '/')) {
+			if (!is_dir ($this->applicationRoot . '/scenes/' . $id . '/')) {
 				unset ($locations[$id]);
 			}
 		}
@@ -488,10 +488,10 @@ class panoramaStoryMap extends frontControllerApplication
 		
 		# Add in preview image
 		foreach ($locations as $id => $location) {
-			$previewSearchPath = $_SERVER['DOCUMENT_ROOT'] . $this->baseUrl . '/scenes/' . $id . '/app-files/tiles/0-*/preview.jpg';
+			$previewSearchPath = $this->applicationRoot . '/scenes/' . $id . '/app-files/tiles/0-*/preview.jpg';
 			$files = glob ($previewSearchPath);
 			$thumbnailFile = $files[0];
-			$thumbnailPath = preg_replace ("|^{$_SERVER['DOCUMENT_ROOT']}|", '', $thumbnailFile);
+			$thumbnailPath = preg_replace ("|^{$this->applicationRoot}|", $this->baseUrl, $thumbnailFile);
 			$thumbnailPath = str_replace ('app-files/', '', $thumbnailPath);	// Removed in server rewrite
 			$locations[$id]['thumbnail'] = $thumbnailPath;
 		}

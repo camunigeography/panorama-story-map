@@ -3,10 +3,18 @@
 # Load using:
 #	# Paranorama story map
 #	Include /path/to/panorama-story-map/.httpd.conf.extract.txt
-#	Use MacroPanoramaStoryMap /path/to/panorama-story-map
+#	Use MacroPanoramaStoryMap /storymap  "path/to/panorama-story-map"
 
 
-<Macro MacroPanoramaStoryMap $baseUrl>
+<Macro MacroPanoramaStoryMap $baseUrl $repoPath>
+	
+	# Assets
+	Alias $baseUrl/assets/ $repoPath/assets/
+	Alias $baseUrl/js/ $repoPath/js/
+	Alias $baseUrl/images/ $repoPath/images/
+	Alias $baseUrl/marzipano-customised/ $repoPath/marzipano-customised/
+	Alias $baseUrl/scenes/ $repoPath/scenes/
+	Alias $baseUrl/src/ $repoPath/src/
 	
 	# Front controller application support
 	Use MacroFrontControllerApplication "$baseUrl/" "Paranorama story map"
@@ -20,10 +28,10 @@
 	Use MacroSinenomineEmbeddedTable "$baseUrl" "/edit" "edit"
 	
 	# Scenes
-	RewriteRule ^$baseUrl/scenes/([^/]+)/(index.js|style.css)$ $baseUrl/marzipano-customised/$2 [L]
-	RewriteRule ^$baseUrl/scenes/([^/]+)/img/(play).png $baseUrl/marzipano-customised/img/$2.png [L]
+	RewriteRule ^$baseUrl/scenes/([^/]+)/(index.js|style.css)$ $repoPath/marzipano-customised/$2 [L]
+	RewriteRule ^$baseUrl/scenes/([^/]+)/img/(play).png $repoPath/marzipano-customised/img/$2.png [L]
 	RewriteRule ^$baseUrl/scenes/([^/]+)/(|index.html)$ $baseUrl/index.html?action=scene&item=$1 [L]
-	RewriteRule ^$baseUrl/scenes/([^/]+)/(.+)$ $baseUrl/scenes/$1/app-files/$2 [L]
+	RewriteRule ^$baseUrl/scenes/([^/]+)/(.+)$ $repoPath/scenes/$1/app-files/$2 [L]
 	RedirectMatch Permanent ^$baseUrl/scenes/?$ $baseUrl/
 	
 	# Editing - allow large file uploads
