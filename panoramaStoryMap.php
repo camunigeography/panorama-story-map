@@ -396,9 +396,13 @@ class panoramaStoryMap extends frontControllerApplication
 		return <<<'EOD'
 			document.addEventListener ('DOMContentLoaded', function () {
 				
+				// Add map back link to heading
+				const mapLinkHtml = '<p style="position: absolute; left: 10px; top: 3px; font-size: 12px; background-color: gray;"><a href="../../">« Map</a></p>';
+				document.querySelector ('#titleBar').insertAdjacentHTML ('afterbegin', mapLinkHtml);
+				
 				// Define labels for language switcher
 				const languagesLabels = {en: 'English', es: 'Español'};
-			
+				
 				// Find each hotspot
 				document.querySelectorAll ('.hotspot .info-hotspot-text').forEach (function (hotspot) {
 					
