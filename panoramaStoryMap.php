@@ -350,7 +350,7 @@ class panoramaStoryMap extends frontControllerApplication
 				case 'jpg':
 				case 'jpeg':
 				case 'png':
-					$html = '<img style="width: ' . $this->settings['assetWidth'] . '; display: block;" src="' . htmlspecialchars ($path) . '" />';
+					$html = '<a href="' . htmlspecialchars ($path) . '" target="_blank" title="Click to open full-size image in a new tab" style="cursor: zoom-in;"><img style="width: ' . $this->settings['assetWidth'] . '; display: block;" src="' . htmlspecialchars ($path) . '" /></a>';
 					break;
 				case 'url':
 					$contents = file_get_contents ($file);
