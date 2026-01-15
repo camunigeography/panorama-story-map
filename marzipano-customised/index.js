@@ -287,12 +287,12 @@
   function createInfoHotspotElement(hotspot) {
 
     // LOCAL CHANGE: Determine the type used for the icon
-    let type = 'info';
-    if (hotspot.text.includes ('Website link')) {type = 'info';}
-    if (hotspot.text.includes ('<img')) {type = 'info';}
-    if (hotspot.text.includes ('<audio')) {type = 'play';}
-    if (hotspot.text.includes ('<video')) {type = 'expand';}
-    if (hotspot.text.includes ('youtube.')) {type = 'expand';}
+    let type = 'custom/info';
+    if (hotspot.text.includes ('Website link')) {type = 'custom/website';}
+    if (hotspot.text.includes ('<img')) {type = 'custom/photo';}
+    if (hotspot.text.includes ('<audio')) {type = 'custom/audio';}
+    if (hotspot.text.includes ('<video')) {type = 'custom/video';}
+    if (hotspot.text.includes ('youtube.')) {type = 'custom/video';}
     
     // Create wrapper element to hold icon and tooltip.
     var wrapper = document.createElement('div');

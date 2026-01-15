@@ -30,7 +30,7 @@ Dependencies
 Author
 ------
 
-Martin Lucas-Smith, Department of Geography, University of Cambridge, 2024.
+Martin Lucas-Smith, Department of Geography, University of Cambridge, 2024-6.
 
 
 License

@@ -29,7 +29,7 @@
 	
 	# Scenes
 	RewriteRule ^$baseUrl/scenes/([^/]+)/(index.js|style.css)$ $repoPath/marzipano-customised/$2 [L]
-	RewriteRule ^$baseUrl/scenes/([^/]+)/img/(play).png $repoPath/marzipano-customised/img/$2.png [L]
+	RewriteRule ^$baseUrl/scenes/([^/]+)/img/custom/(.+).png$ $repoPath/marzipano-customised/img/custom/$2.png [L]
 	RewriteRule ^$baseUrl/scenes/([^/]+)/(|index.html)$ $baseUrl/index.html?action=scene&item=$1 [L]
 	RewriteRule ^$baseUrl/scenes/([^/]+)/(.+)$ $repoPath/scenes/$1/app-files/$2 [L]
 	RedirectMatch Permanent ^$baseUrl/scenes/?$ $baseUrl/
