@@ -46,8 +46,11 @@ const panoramaStoryMap = (function ()
 				_map.setPaintProperty('Satellite', 'raster-opacity', 0.7);
 			});
 			
-			// Enable controls
+			// Enable navigation (+/-) controls
 			_map.addControl (new maplibregl.NavigationControl ());
+			
+			// Enable full-screen control
+			_map.addControl (new maplibregl.FullscreenControl());
 			
 			// Add terrain; see: https://www.maptiler.com/news/2022/05/maplibre-v2-add-3d-terrain-to-your-map/
 			_map.on ('load', function () {
