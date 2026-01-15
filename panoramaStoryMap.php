@@ -21,8 +21,8 @@ class panoramaStoryMap extends frontControllerApplication
 			'maptilerApiKey'		=> NULL,
 			'assetWidth'			=> '100%',	// Or e.g. '260px'
 			'flyTo'					=> array (
-				'center'				=> array (-75, -23.32),
-				'zoom'					=> 2.3,
+				'center'				=> array (-80, -23.32),
+				'zoom'					=> 2,
 				'pitch'					=> 0,
 			),
 			'minZoom'				=> 6,
