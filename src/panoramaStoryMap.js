@@ -36,7 +36,7 @@ const panoramaStoryMap = (function ()
 				container: 'map',
 				style: `https://api.maptiler.com/maps/hybrid/style.json?key=${_settings.maptilerApiKey}`,
 				center: [0, 0], // lng, lat
-				//hash: true,
+				hash: true,
 				zoom: 1,
 				maxZoom: 13
 			});
