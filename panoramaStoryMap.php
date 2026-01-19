@@ -327,6 +327,13 @@ class panoramaStoryMap extends frontControllerApplication
 			$replacements[$url] = '<a href="' . $url . '" target="_blank">' . $websiteLinkText . '</a>';
 		}
 		
+		# Create replacements to remove all <table> -related tags
+		preg_match_all ("@(</?(table|thead|tbody|tr|td)([^>]*)>)@", $js, $matchesTable, PREG_SET_ORDER);
+		foreach ($matchesTable as $match) {	// Loop through each match that has found
+			$tag = $match[1];
+			$replacements[$tag] = '';
+		}
+		
 		# Standardise the assets file extensions and get the file list
 		$assetsDirectory = $this->applicationRoot . '/assets/' . $id . '/';
 		$files = directories::standardiseFileExtensions ($assetsDirectory);
