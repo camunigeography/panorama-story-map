@@ -1,11 +1,11 @@
-{if isSet ($page404)}
+{if isset ($page404)}
 	{$page404}
 {/if}
 
-{if isSet ($passwordForm)}
+{if isset ($passwordForm)}
 	{$passwordForm}
 {/if}
 
-{if isSet ($sceneHtml)}
+{if isset ($sceneHtml)}
 	{$sceneHtml}
 {/if}
